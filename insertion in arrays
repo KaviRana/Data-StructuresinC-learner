@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+int main()
+{
+    int i,choice,pos,num,choice;
+    int array[50];
+    printf("Enter the size of your array: ");
+    scanf("%d",&size);
+    printf("Enter the elements of your array: ");
+    for(i=0;i<size;i++){
+        scanf("%d",&array[i]);
+        
+    }
+    printf("The usert input array is: ");
+    for(i=0;i<size,i++){
+        printf("%d",array[i]);
+    }
+    
+    printf("\n1.Insertion at the beginning.\n2.Insertion at the end.\n3.Insertion at a specific position.");
+    scanf("%d",&choice);
+    switch(choice){
+        case 1:
+            printf("\nInsertion at the beginning.");
+            printf("\nEnter data: ");
+            scanf("%d",&num);
+            
+            for(i=size-1;i>=0;i--){
+                array[i+1] = array[i];
+
+            }
+            array[0]= num;
+            size++;
+            break;
+        case 2:
+        printf("\nEnter data: ");
+        scanf("%d",&num);
+        array[size] = num;
+        size++;
+        break;
+        case 3:
+        printf("Enter positon");
+        scanf("%d",&pos);
+        if (pos<0 || pos>= size+1){
+            printf("Invalid Position");
+        }
+        else{
+            printf("\nEnter data: ");
+            scanf("%d",&num);
+            
+            for(i=size-1;i>=pos;i--){
+                array[i+1] = array[i];
+
+            }
+            array[pos-1]= num;
+            size++;
+        }
+        break;
+        default:
+            printf("invalid choice");
+            break;
+        
+    }
+    printf("The resultant array is: ");
+    for(i=0;i<size,i++){
+        printf("%d",array[i]);
+    }
+    return 0;
+}

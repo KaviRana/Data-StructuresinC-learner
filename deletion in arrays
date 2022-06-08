@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+int main()
+{
+    int a[50];
+    int i,choice,pos;
+    int size;
+    printf("Enter the size of the array: \n");
+    scanf("%d",&size);
+    printf("Enter the elements of the array: \n");
+    for(i=0;i<size;i++){
+        scanf("%d",&a[i]);
+    }
+    
+    printf("The original array is: ");
+    for (i=0;i<size;i++){
+        printf("%d ",a[i]);
+    }
+    printf("Enter 1. for deletion at the beginning\n2.For deletion at the end\n3.For deletion at a specific position.");
+    scanf("%d",&choice);
+    switch(choice){
+        case 1:
+            printf("Deletion at the beginning");
+            for (i=0;i<size-1;i++){
+                    a[i] = a[i+1];
+                }
+                size--;
+            break;
+        case 2:
+            printf("Deletion at the end");
+            a[size-1] = a[size-2];
+            size--;
+            break;
+        case 3:
+            printf("Enter position for deletion.");
+            scanf("%d",&pos);
+            if(pos<0 || pos > size){
+            
+                printf("Invalid position. There is no element at this position.");
+            }
+            else{
+                for (i=pos-1;i<size-1;i++){
+                    a[i] = a[i+1];
+                }
+                size--;
+            }
+            
+    }
+    printf("The new array is: ");
+    for (i=0;i<size;i++){
+        printf("%d ",a[i]);
+    }
+    return 0;
+}

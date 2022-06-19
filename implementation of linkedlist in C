@@ -1,0 +1,67 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+struct node{ // this is for creating a node. a template sort. 
+         int data;
+         struct node *link;
+     };
+
+// print the linked list value
+void printLinkedlist(struct node *p) {
+    printf("the linked list is: \n");
+  while (p != NULL){
+    printf("%d ", p->data);
+    p = p->link;
+  }
+}
+int main()
+{   
+    int choice; 
+    int program_on;
+    program_on = 1;
+    
+    printf("LINKED LIST IMPLEMENTATION.\n");
+    struct node *head;//pointer for the first node in the linked list. permanent
+    struct node *newnode; //pointer to the newly created node. 
+    struct node *temp; // pointer that changes during traversal
+    
+    head = 0;
+    
+    newnode = (struct node *)malloc(sizeof(struct node));
+    printf("\nEnter 1 for creating a node.\nEnter 2 for traversing the linked list.\n3.To terminate the program.");
+    while(program_on == 1){
+        
+        printf("\nEnter your choice.");
+        scanf("%d",&choice);
+    
+        switch(choice){
+            case 1:
+                printf("\nEnter data: ");
+                scanf("%d",&newnode->data);//& save this data to the data part of the newnode. 
+                
+                if (head == NULL){//condition true only for the first node in the list. 
+                    head = temp = newnode;
+                    
+                }
+                else{
+                    temp->link = newnode;
+                    temp = newnode;
+                    newnode->link = NULL;
+                }
+                
+                break;
+            case 2:
+                temp = head;
+                printLinkedlist(head);
+                break;
+            case 3:
+                program_on = 0;
+                printf("Program Terminated.");
+                break;
+            default:
+                printf("You entered wrong choice.");
+                break;
+        }
+    }
+    return 0;
+}

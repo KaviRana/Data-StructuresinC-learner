@@ -7,12 +7,20 @@ struct node{ // this is for creating a node. a template sort.
      };
 
 // print the linked list value
-void printLinkedlist(struct node *p) {
-    printf("the linked list is: \n");
-  while (p != NULL){
-    printf("%d ", p->data);
-    p = p->link;
-  }
+void traversal(struct node *head) {
+    int count = 0;
+    if(head == NULL){
+        printf("Linked List is EMPTY");
+    }
+    struct node *ptr = NULL;
+    ptr = head;
+    while(ptr != NULL){
+        count++;
+        printf("%d ",ptr->data);
+        ptr = ptr->link;
+    }
+    
+    printf("The linked list has %d nodes.",count);
 }
 int main()
 {   
@@ -52,7 +60,7 @@ int main()
                 break;
             case 2:
                 temp = head;
-                printLinkedlist(head);
+                traversal();
                 break;
             case 3:
                 program_on = 0;

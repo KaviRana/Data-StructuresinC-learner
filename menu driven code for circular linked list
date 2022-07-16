@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+struct node *head;
+
+
+void beginsert();
+void endinsert();
+
+void main() 
+{
+    int num;
+    int choice =0;  
+    while(choice != 7)   
+    {  
+        printf("\n*********Main Menu*********\n");  
+        printf("\nChoose one option from the following list ...\n");  
+        printf("\n===============================================\n");  
+        printf("\n1.Insert in begining\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search for an element\n6.Show\n7.Exit\n");  
+        printf("\nEnter your choice?\n");         
+        scanf("\n%d",&choice);  
+        switch(choice)  
+        {  
+            case 1:  
+            printf("Enter data: ");
+            scanf("%d",&num);
+            beginsert(num);
+            break; 
+            case 2:
+            printf("Insertion at the end");
+            printf("Enter data: ");
+            scanf("%d",&num);
+            endinsert(num);
+            break;
+            case 3:
+            printf("Deletion at the beginning.");
+            break;
+            case 4:
+            printf("Deletion at the end.");
+            break;
+            case 5:
+            printf("Searching for an element.");
+            break;
+            case 6:
+            printf("Displaying the linked list...");
+            break;
+            case 7:
+            printf("Thank you.");
+            default:  
+            printf("Please enter valid choice..");  
+        }  
+    }  
+}  
+
+void begininsert(int value){
+    struct node *new_node,*temp;//temp is to traverse. here I declared the new node. 
+    new_node = (struct node *)malloc(sizeof(struct node));//allocated memory dynamically. 
+    new_node->data = value;//the data part of the node is set to value.
+    //check if the list is empty. 
+    if(head==NULL){
+        head = new_node;
+        new_node->next = head; //this means this is the first node in the ll and its pointing to itself. 
+    }
+    else{
+        //we have to traverse to the last node 
+        //inorder to connect to the link part to the first node to complete the loop. 
+        //there is already a first node present.
+        temp = head;
+        while(temp->next != head){//finding the last node condition
+            temp = temp->next;
+        }
+        new_node->next = head; //the new node is pointing to the old first node.
+        temp->next = new_node; //the link of the last node is pointing to the first node.
+        head = new_node;//the new node is now the head node. 
+        
+    }
+    
+     printf("Node inserted at the beginning.");
+}
+
+void endinsert(int value){
+    struct node *new_node,*temp;
+    new_node = (struct node*)malloc(sizeof(struct node));
+    new_node->data = value;
+    if(head==NULL){
+        head = new_node;
+        
+    }
+}

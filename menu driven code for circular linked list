@@ -1,3 +1,4 @@
+// circular singly linked list complete operations. 
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,53 +12,62 @@ struct node *head;
 
 void beginsert();
 void endinsert();
+void display();
+void delete_begin();
+void delete_end();
+
 
 void main() 
 {
     int num;
-    int choice =0;  
-    while(choice != 7)   
+    int choice;  
+    while(choice != 8)   
     {  
         printf("\n*********Main Menu*********\n");  
         printf("\nChoose one option from the following list ...\n");  
         printf("\n===============================================\n");  
-        printf("\n1.Insert in begining\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search for an element\n6.Show\n7.Exit\n");  
+        printf("\n1.Insert in begining\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search for an element\n6.Display\n7.Exit\n");  
         printf("\nEnter your choice?\n");         
         scanf("\n%d",&choice);  
         switch(choice)  
         {  
             case 1:  
-            printf("Enter data: ");
+            printf("\nEnter data: ");
             scanf("%d",&num);
             beginsert(num);
             break; 
             case 2:
-            printf("Insertion at the end");
+            printf("\nInsertion at the end");
             printf("Enter data: ");
             scanf("%d",&num);
             endinsert(num);
             break;
             case 3:
-            printf("Deletion at the beginning.");
+            printf("\nDeletion at the beginning.");
+            delete_begin();
             break;
             case 4:
-            printf("Deletion at the end.");
+            printf("\nDeletion at the end.");
+            delete_end();
             break;
             case 5:
-            printf("Searching for an element.");
+            printf("\nSearching for an element.");
             break;
             case 6:
-            printf("Displaying the linked list...");
+            printf("\nDisplaying the linked list...");
+            display();
             break;
             case 7:
-            printf("Thank you.");
+            printf("\nThank you.");
+            break;
             default:  
-            printf("Please enter valid choice..");  
+            printf("\nPlease enter valid choice..");  
+            break;
         }  
     }  
 }  
 
-void begininsert(int value){
+void beginsert(int value){
     struct node *new_node,*temp;//temp is to traverse. here I declared the new node. 
     new_node = (struct node *)malloc(sizeof(struct node));//allocated memory dynamically. 
     new_node->data = value;//the data part of the node is set to value.
@@ -89,6 +99,84 @@ void endinsert(int value){
     new_node->data = value;
     if(head==NULL){
         head = new_node;
+        printf("\nThis node is the first node in the list.");
+        new_node->next = head;
+    }
+    else{
+        //first node is present. we have to traverse and add a new node there. also connect the link part to the first node to connect the node.
+        temp = head;//temp pointer is pointing to head in the start.
+        while(temp->next != head){//finding the last node condition
+            temp = temp->next;
+        }
+        temp->next = new_node;
+        new_node->next = head;
         
+    }
+        printf("\nNode has been inserted in the end");
+}
+
+void display(){
+    int count = 0;
+    struct node *temp;
+    temp = head;
+    if(head==NULL){
+        printf("Circular Linked List is empty.\n");
+        
+    }
+    else{
+        count=1;
+        while(temp->next != head){
+            printf("%d ",temp->data);
+            count++;
+            temp = temp->next;
+        }
+        printf("%d ",temp->data);
+    }
+    printf("The number of nodes is %d.",count);
+    
+}
+
+void delete_begin(){
+    //check if linked list exists or not.
+    if(head == NULL){
+        printf("Circular Singly Linked List is empty.Nothing can be deleted.\n");
+    }
+    else if(head->next == head){
+        //linked list only has one node.
+        free(head);
+    }
+    else{
+    //then we make a pointer temp to traverse to the last node of the list.
+        struct node *temp;
+        temp = head;
+        while(temp->next != head){
+            temp=temp->next;
+        }
+    //we change the address of the last node pointer to the second node of the list.
+    temp->next = head->next;
+    free(head);//free the first node.
+    head = temp->next;//head is now the second node. 
+    }
+}
+
+void delete_end(){
+    //check if there are nodes in the linked list.
+     if(head == NULL){
+        printf("Circular Singly Linked List is empty.Nothing can be deleted.\n");
+    }
+    else if(head->next == head){
+        //linked list only has one node.
+        free(head);
+    }
+    else {
+        //temporary pointer to traverse the linked list.temp will traverse to the last node. and another pointer temp2 will traverse to the second last node. 
+        struct node *temp,*temp2;
+        temp = head;//starts at head.
+        while(temp->next != head){
+            temp2 = temp;
+            temp=temp->next; //this finds the last node.
+        }
+        temp2->next = head;
+        free(temp);
     }
 }
